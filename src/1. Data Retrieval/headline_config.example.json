@@ -1,0 +1,8 @@
+{
+  "account_username" : "",
+  "min_reply" : 1000,
+  "since" : "YYYY-MM-DD",
+  "until" : "YYYY-MM-DD",
+  "num_crawl": 1000,
+  "out_csv": "./path/to/out.csv"
+}

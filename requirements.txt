@@ -1,0 +1,6 @@
+# on python 3.8.10
+tweepy[async]
+snscrape
+pandas
+numpy
+python-dotenv
