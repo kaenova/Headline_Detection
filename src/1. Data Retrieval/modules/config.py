@@ -15,7 +15,7 @@ def check_headline_config(config: dict) -> bool:
     """
     Returns true if config is valid
     """
-    config_attr = ["account_username", "min_reply", "since", "until", 
+    config_attr = ["min_reply", "since", "until", 
                    "num_crawl", "out_csv"]
     for i in config_attr:
         if i not in config.keys():

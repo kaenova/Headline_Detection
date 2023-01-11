@@ -8,16 +8,20 @@ def twitter_search_dataframe(
     query: str, num_tweets: int, temp_path: str, log: logging
 ) -> pd.DataFrame:
     BATCH = 300
+    TWEET_COLUMNS = ["tweet_id", "tweet_url", "tweet_date", 
+                     "reply_count", "like_count", "tweet"]
     counter = 1
     temporary_csv_file = f"{temp_path}/temp_{counter}.csv"
     tweets_list = []
+    
+    scraper = sntwitter.TwitterSearchScraper(query, top=True)
 
-    for i, tweet in enumerate(sntwitter.TwitterSearchScraper(query).get_items()):
-        tweets_list.append([tweet.id, tweet.url, tweet.content])
+    for i, tweet in enumerate(scraper.get_items()):
+        tweets_list.append([tweet.id, tweet.url, tweet.date, tweet.replyCount, tweet.likeCount, tweet.rawContent])
 
         # Create csv batch and reset tweets_list
         if len(tweets_list) == BATCH:
-            pd.DataFrame(tweets_list, columns=["TweetID", "TweetURL", "tweet"]).to_csv(
+            pd.DataFrame(tweets_list, columns=TWEET_COLUMNS).to_csv(
                 temporary_csv_file, index=False
             )
             counter += 1
@@ -27,7 +31,7 @@ def twitter_search_dataframe(
         if i == num_tweets:
             break
 
-    pd.DataFrame(tweets_list, columns=["TweetID", "TweetURL", "tweet"]).to_csv(
+    pd.DataFrame(tweets_list, columns=TWEET_COLUMNS).to_csv(
         temporary_csv_file, index=False
     )
     del tweets_list, counter, temporary_csv_file
