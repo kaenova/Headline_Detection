@@ -1,0 +1,6 @@
+{
+  "username": "",
+  "min_faves": 0,
+  "in_csv": "./path/to/file.csv",
+  "out_csv": "./path/to/file.csv"
+}
