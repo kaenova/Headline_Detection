@@ -1,5 +1,5 @@
 {
-  "account_username" : "",
+  "api_key": "INSERT_YOUR_API_KEYS_HERE",
   "min_reply" : 1000,
   "since" : "YYYY-MM-DD",
   "until" : "YYYY-MM-DD",
