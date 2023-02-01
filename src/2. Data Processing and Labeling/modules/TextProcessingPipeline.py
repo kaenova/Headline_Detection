@@ -17,9 +17,10 @@ class TextProcessingPipeline:
         return processed_text
     
     def add_processor(self, func: Callable[[str], str]):
-        new_processor = self.processor_func
+        new_processor = self.processor_func[:] # Copy processor by value
         new_processor.append(func)
         TextProcessingPipeline.test_processor(new_processor)
+        self.processor_func = new_processor
         
     @staticmethod
     def test_processor(processor_funcs: list[Callable[[str], str]]):
