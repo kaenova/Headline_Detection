@@ -4,3 +4,4 @@ snscrape
 pandas
 numpy
 python-dotenv
+emoji

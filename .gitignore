@@ -3,3 +3,4 @@ venv
 .env
 temp
 *config.json
+.ipynb_checkpoints
