@@ -4,11 +4,12 @@ class TextProcessingPipeline:
     """
     A text preprocessing pipeline that will run a text to the registered function 
     """
-    processor_func: list[Callable[[str], str]] = []
+    processor_func: 'list[Callable[[str], str]]' = []
     
-    def  __init__(self, processor: Optional[list[Callable[[str], str]]]) -> None:
-        self.processor_func = processor
-        TextProcessingPipeline.test_processor(self.processor_func)
+    def  __init__(self, processor: 'Optional[list[Callable[[str], str]]]') -> None:
+        if processor is not None:
+            self.processor_func = processor
+            TextProcessingPipeline.test_processor(self.processor_func)
             
     def process_text(self, text: str) -> str:
         processed_text = text
@@ -23,7 +24,7 @@ class TextProcessingPipeline:
         self.processor_func = new_processor
         
     @staticmethod
-    def test_processor(processor_funcs: list[Callable[[str], str]]):
+    def test_processor(processor_funcs: 'list[Callable[[str], str]]'):
         dummy_text = "Lorem ipsum dayeuh kolot"
         
         processed_text = dummy_text

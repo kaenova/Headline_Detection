@@ -4,27 +4,31 @@ emoji or 'HTTPURL'
 """
 import re
 from NDETCStemmer import NDETCStemmer
-from TextProcessingPipeline import TextProcessingPipeline
+from .TextProcessingPipeline import TextProcessingPipeline
+from typing import Optional
 
 class NDETCStemmerWraper:
     
-    def __init__(self) -> None:
-        self.stemmer = NDETCStemmer()
-        self.text_preprocessor = TextProcessingPipeline([
+    def __init__(self, stemmer: 'Optional[NDETCStemmer]' = None) -> None:
+        if stemmer is not None:
+            self._stemmer = stemmer
+        else:
+            self._stemmer = NDETCStemmer()
+        self._text_preprocessor = TextProcessingPipeline([
             self._change_emoji,
             self._change_httpurl,
             self._change_user
         ])
-        self.text_postprocessor = TextProcessingPipeline([
+        self._text_postprocessor = TextProcessingPipeline([
             self._dechange_stem_emoji,
             self._dechange_stem_httpurl,
             self._dechange_stem_user
         ])
         
     def stem(self, text:str) -> str:
-        pre_processed_text = self.text_preprocessor.process_text(text)
-        stemmed_text = self.stemmer.stem(pre_processed_text)
-        post_processed_text = self.text_postprocessor.process_text(stemmed_text)
+        pre_processed_text = self._text_preprocessor.process_text(text)
+        stemmed_text = self._stemmer.stem(pre_processed_text)
+        post_processed_text = self._text_postprocessor.process_text(stemmed_text)
         return post_processed_text
         
     def _change_httpurl(self, text: str) ->str:
