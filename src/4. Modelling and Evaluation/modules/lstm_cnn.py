@@ -47,7 +47,7 @@ class LSTM_CNN(nn.Module):
         )
 
         self.classification_head = nn.Sequential(
-            nn.Flatten(), nn.Linear(254, 2), nn.Softmax()
+            nn.Flatten(), nn.Linear(254, 2)
         )
 
     def _prepare_text(self, x: "list[str]"):
