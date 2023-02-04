@@ -8,3 +8,6 @@ emoji
 git+https://github.com/kaenova/NDETCStemmer.git@master
 torch 
 pytorch-nlp
+tqdm
+transformers
+torchmetrics

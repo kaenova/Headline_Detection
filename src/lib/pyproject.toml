@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61.0", "emoji", "NDETCStemmer", "tweepy", "snscrape", "torch", "pytorch-nlp"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kaelib"
+version = "0.1-alpha"
+authors = [
+  { name="Kaenova Mahendra Auditama", email="kaenova@gmail.com" },
+]
+description = "A most used private, hand made library by Kaenova ;)"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
