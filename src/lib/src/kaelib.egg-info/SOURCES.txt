@@ -1,5 +1,6 @@
 README.md
 pyproject.toml
+setup.py
 src/kaelib/__init__.py
 src/kaelib.egg-info/PKG-INFO
 src/kaelib.egg-info/SOURCES.txt
