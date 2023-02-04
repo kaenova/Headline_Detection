@@ -10,6 +10,7 @@ src/kaelib/crawler/__init__.py
 src/kaelib/crawler/config.py
 src/kaelib/crawler/crawler.py
 src/kaelib/model/__init__.py
+src/kaelib/model/fasttext.py
 src/kaelib/model/lstm_cnn.py
 src/kaelib/processor/NDETCStemmerWraper.py
 src/kaelib/processor/TextProcessingPipeline.py

@@ -5,4 +5,4 @@ Summary: A most used private, hand made library by Kaenova ;)
 Author: Kaenova Mahendra Auditama
 Author-email: Kaenova Mahendra Auditama <kaenova@gmail.com>
 Classifier: Programming Language :: Python :: 3
-Requires-Python: >=3.6
+Requires-Python: >=3.8
