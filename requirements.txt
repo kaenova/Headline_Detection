@@ -12,3 +12,4 @@ tqdm
 transformers
 torchmetrics
 datasets
+ipywidgets
