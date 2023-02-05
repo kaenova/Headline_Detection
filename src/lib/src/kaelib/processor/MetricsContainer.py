@@ -1,16 +1,16 @@
 from torch import Tensor
-from typing import Callable, Optional, Union
+from typing import Callable, Optional, Union, Dict
 from torchmetrics.classification import MulticlassAccuracy, MulticlassF1Score
 
 MetricsName = str
 CallableMetrics = Callable[[Tensor, Optional[Tensor]], Tensor]
 CallableCallbacks = Callable[[MetricsName, Tensor], None]
-MetricsHistoryDict = dict[MetricsName, list[Union[float, str]]]
-MetricsBatchDict = dict[MetricsName, list[float]]
+MetricsHistoryDict = Dict[MetricsName, list[Union[float, str]]]
+MetricsBatchDict = Dict[MetricsName, list[float]]
 
 
 class MetricsContainer:
-    metrics_fn: "dict[MetricsName, CallableMetrics]" = {}
+    metrics_fn: "Dict[MetricsName, CallableMetrics]" = {}
     __callbacks: "list[CallableCallbacks]" = []
 
     metrics_value_history: MetricsHistoryDict = {}
@@ -18,7 +18,7 @@ class MetricsContainer:
 
     def __init__(
         self,
-        metrics_fn: "dict[MetricsName, CallableMetrics]",
+        metrics_fn: "Dict[MetricsName, CallableMetrics]",
         callbacks: "Optional[list[CallableCallbacks]]" = None,
     ) -> None:
         self.metrics_fn = metrics_fn
@@ -77,7 +77,7 @@ class MetricsContainer:
         self.__run_callbacks(name, metrics_val)
         return
 
-    def mean_metrics_batch(self, precision: int = 4) -> dict[str, Union[float, str]]:
+    def mean_metrics_batch(self, precision: int = 4) ->"Dict[str, Union[float, str]]":
         """
         Get current average in a batch
         """
@@ -89,7 +89,7 @@ class MetricsContainer:
 
     def latest_metrics_batch(
         self, precision: int = 4
-    ) -> "dict[MetricsName, Union[float,str]]":
+    ) -> "Dict[MetricsName, Union[float,str]]":
         """
         Get the latest metrics on a batch
         """
@@ -107,7 +107,7 @@ class MetricsContainer:
 
     def latest_metrics_history(
         self, precision: int = 4
-    ) -> "dict[MetricsName,  Union[float, str]]":
+    ) -> "Dict[MetricsName,  Union[float, str]]":
         """
         Get the latest metrics on a history
         """
@@ -134,7 +134,7 @@ class MetricsContainer:
 
     def __compute_mean_metrics_value(
         self, metrics_value: Union[MetricsHistoryDict, MetricsBatchDict]
-    ) -> "dict[MetricsName, Union[float, str]]":
+    ) -> "Dict[MetricsName, Union[float, str]]":
         final_dict = {}
         for metrics_name in metrics_value:
             current_metrics = metrics_value[metrics_name]
@@ -152,8 +152,8 @@ class MetricsContainer:
         return final_dict
 
     def __resolve_precision(
-        self, precision: int, metrics_value: dict[MetricsName, Union[float, str]]
-    ) -> dict[MetricsName, Union[float, str]]:
+        self, precision: int, metrics_value: "Dict[MetricsName, Union[float, str]]"
+    ) -> "Dict[MetricsName, Union[float, str]]":
         final_metrics = {}
         for name in metrics_value:
             val = metrics_value[name]
@@ -210,16 +210,16 @@ if __name__ == "__main__":
     print("batch 1 latest metrics on a batch", metrics.latest_metrics_batch())
     print("batch 1 mean metrics on a batch", metrics.mean_metrics_batch())
     print("batch 1 latest history", metrics.latest_metrics_history())
-    
+
     # New batch
     metrics.new_batch()
-    
+
     # Add metric by calling insert_metric
     metrics.compute_metric("acc", preds_2, target_2)
     # Add metric by calling the class
     metrics("f1", preds_2, target_2)
     metrics("loss", loss_2)
-    
+
     metrics.process_batch()
     print("batch 2 latest metrics on a batch", metrics.latest_metrics_batch())
     print("batch 2 mean metrics on a batch", metrics.mean_metrics_batch())
