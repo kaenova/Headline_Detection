@@ -77,7 +77,7 @@ class MetricsContainer:
         self.__run_callbacks(name, metrics_val)
         return
 
-    def mean_metrics_batch(self, precision: int = 4) ->"Dict[str, Union[float, str]]":
+    def mean_metrics_batch(self, precision: int = 5) ->"Dict[str, Union[float, str]]":
         """
         Get current average in a batch
         """
@@ -88,7 +88,7 @@ class MetricsContainer:
         return mean_metrics
 
     def latest_metrics_batch(
-        self, precision: int = 4
+        self, precision: int = 5
     ) -> "Dict[MetricsName, Union[float,str]]":
         """
         Get the latest metrics on a batch
@@ -106,7 +106,7 @@ class MetricsContainer:
         return latest_metrics
 
     def latest_metrics_history(
-        self, precision: int = 4
+        self, precision: int = 5
     ) -> "Dict[MetricsName,  Union[float, str]]":
         """
         Get the latest metrics on a history
