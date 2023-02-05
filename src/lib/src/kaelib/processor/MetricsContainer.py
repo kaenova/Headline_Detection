@@ -1,17 +1,17 @@
 from torch import Tensor
-from typing import Callable, Optional, Union, Dict
+from typing import Callable, Optional, Union, Dict, List
 from torchmetrics.classification import MulticlassAccuracy, MulticlassF1Score
 
 MetricsName = str
 CallableMetrics = Callable[[Tensor, Optional[Tensor]], Tensor]
 CallableCallbacks = Callable[[MetricsName, Tensor], None]
-MetricsHistoryDict = Dict[MetricsName, list[Union[float, str]]]
-MetricsBatchDict = Dict[MetricsName, list[float]]
+MetricsHistoryDict = Dict[MetricsName, List[Union[float, str]]]
+MetricsBatchDict = Dict[MetricsName, List[float]]
 
 
 class MetricsContainer:
     metrics_fn: "Dict[MetricsName, CallableMetrics]" = {}
-    __callbacks: "list[CallableCallbacks]" = []
+    __callbacks: "List[CallableCallbacks]" = []
 
     metrics_value_history: MetricsHistoryDict = {}
     metrics_value_batch: MetricsBatchDict = {}
@@ -19,7 +19,7 @@ class MetricsContainer:
     def __init__(
         self,
         metrics_fn: "Dict[MetricsName, CallableMetrics]",
-        callbacks: "Optional[list[CallableCallbacks]]" = None,
+        callbacks: "Optional[List[CallableCallbacks]]" = None,
     ) -> None:
         self.metrics_fn = metrics_fn
         for i in self.metrics_fn:
