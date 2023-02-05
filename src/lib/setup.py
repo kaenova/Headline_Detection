@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name = "kaelib",
-    version = "0.1-alpha",
+    version = "0.0.1",
     author = "Kaenova Mahendra Auditama",
     author_email = "kaenova@gmail.com",
     description = "A most used private, hand made library by Kaenova ;)",
