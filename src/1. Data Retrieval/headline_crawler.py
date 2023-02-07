@@ -1,8 +1,7 @@
 import os
 import logging
-import pandas
-import modules.config as config
-import modules.crawler as crawler
+import kaelib.crawler.config as config
+import kaelib.crawler.crawler as crawler
 import uuid
 
 # Setup environment

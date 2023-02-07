@@ -13,3 +13,4 @@ transformers
 torchmetrics
 datasets
 ipywidgets
+openpyxl

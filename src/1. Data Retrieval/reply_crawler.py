@@ -1,8 +1,8 @@
 import os
 import logging
 import pandas as pd
-import modules.config as config
-import modules.crawler as crawler
+import kaelib.crawler.config as config
+import kaelib.crawler as crawler
 import uuid
 from datetime import datetime
 
