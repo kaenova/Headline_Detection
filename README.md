@@ -1,7 +1,12 @@
 # Headline Detection
 
-**This repository use custom handmade library**, to install:
+**This repository use custom handmade library** named `kaelib`, to install:
 ```sh
-make lib-install
+make lib
 ```
-You can check it out the model and the preprocessing function i create with this library in `src/lib/src/kaelib`
+or run
+```
+pip install -r requirements.txt
+pip install ./src/lib/
+```
+You can check  the model and the preprocessing function i create with this library in `src/lib/src/kaelib`.

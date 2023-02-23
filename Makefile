@@ -1,4 +1,4 @@
-lib-install:
+lib:
 	pip install -r requirements.txt
 	pip install ./src/lib/
 
