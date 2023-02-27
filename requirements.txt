@@ -13,4 +13,6 @@ torchmetrics
 datasets
 ipywidgets
 openpyxl
+matplotlib
+scikit-learn
 git+https://github.com/kaenova/NDETCStemmer.git@master
