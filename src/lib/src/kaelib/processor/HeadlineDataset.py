@@ -20,7 +20,7 @@ class HeadlineDataset(Dataset):
         
         self.input_ids = tokenized["input_ids"]
         self.attention_mask = tokenized["attention_mask"]
-        self.labels = torch.tensor(df['labels'].to_list(), dtype=torch.int32)
+        self.labels = torch.tensor(df['labels'].to_list(), dtype=torch.int64)
 
     def __len__(self):
         return self.length
