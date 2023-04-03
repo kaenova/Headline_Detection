@@ -15,4 +15,5 @@ ipywidgets
 openpyxl
 matplotlib
 scikit-learn
+lightning
 git+https://github.com/kaenova/NDETCStemmer.git@master
