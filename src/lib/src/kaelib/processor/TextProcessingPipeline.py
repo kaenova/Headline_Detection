@@ -1,15 +1,18 @@
 from typing import Callable, Optional
 
+
 class TextProcessingPipeline:
     """
     A text preprocessing pipeline that will run a text to the registered function
     """
 
-    processor_func: "list[Callable[[str], str]]" = []
+    processor_func: "list[Callable[[str], str]]" = [
+        (lambda x: x.strip())
+    ]
 
     def __init__(self, processor: "Optional[list[Callable[[str], str]]]") -> None:
         if processor is not None:
-            self.processor_func = processor
+            self.processor_func = processor + self.processor_func
             TextProcessingPipeline.test_processor(self.processor_func)
 
     def process_text(self, text: str) -> str:
@@ -27,7 +30,7 @@ class TextProcessingPipeline:
 
     def add_processor(self, func: Callable[[str], str]):
         new_processor = self.processor_func[:]  # Copy processor by value
-        new_processor.append(func)
+        new_processor.insert(len(new_processor) - 2, func) # [..., new_processor, strip]
         TextProcessingPipeline.test_processor(new_processor)
         self.processor_func = new_processor
 

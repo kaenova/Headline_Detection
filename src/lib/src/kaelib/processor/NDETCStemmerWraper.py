@@ -4,7 +4,7 @@ emoji or 'HTTPURL'
 """
 import re
 from NDETCStemmer import NDETCStemmer
-from .TextProcessingPipeline import TextProcessingPipeline
+from processor.TextProcessingPipeline import TextProcessingPipeline
 from typing import Optional
 
 class NDETCStemmerWraper:
@@ -39,11 +39,11 @@ class NDETCStemmerWraper:
 
     def _change_emoji(self, text: str) ->str:
         final_data = text
-        emo_text = re.findall(r"(:(\w+):)", text)
+        emo_text = re.findall(r"(:(\w+?):)", text)
         for emo in emo_text:
             full_emoji = emo[0]
             emoji_description = emo[1]
-            replacement = "emo"+emoji_description+"emo"
+            replacement = "emotji"+emoji_description+"emotji"
             final_data = re.sub(full_emoji, replacement, final_data, count=0)
         return final_data
     
@@ -55,7 +55,7 @@ class NDETCStemmerWraper:
 
     def _dechange_stem_emoji(self, text:str) -> str:
         final_data = text
-        emo_text = re.findall(r"(emo(\w+)emo)", text)
+        emo_text = re.findall(r"(emotji(\w+?)emotji)", text)
         for emo in emo_text:
             full_emoji = emo[0]
             emoji_description = emo[1]
@@ -65,7 +65,7 @@ class NDETCStemmerWraper:
 
 # Example on how to use it        
 if __name__ == "__main__":
-    dummy_text = "HTTPURL miliarder @USER rusia oleg tinkov pada senin (31/10/2022), mengaku telah melepaskan kewarganegaraan rusianya karena konflik di ukraina. HTTPURL @USER @USER :sad_but_relieved_face: :test_1: :test2:"
+    dummy_text = ":test_1::test2: HTTPURL miliarder @USER rusia oleg tinkov pada senin (31/10/2022), mengaku telah melepaskan kewarganegaraan rusianya karena konflik di ukraina. HTTPURL @USER @USER :sad_but_relieved_face: :test_1: :test2:"
     
     # Instantiate NDETCStemmerWraper
     stemmer = NDETCStemmerWraper()
