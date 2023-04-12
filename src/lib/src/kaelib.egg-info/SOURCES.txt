@@ -9,12 +9,11 @@ src/kaelib.egg-info/top_level.txt
 src/kaelib/crawler/__init__.py
 src/kaelib/crawler/config.py
 src/kaelib/crawler/crawler.py
-src/kaelib/model/__init__.py
-src/kaelib/model/fasttext.py
-src/kaelib/model/lstm_cnn.py
 src/kaelib/processor/MetricsContainer.py
 src/kaelib/processor/NDETCStemmerWraper.py
 src/kaelib/processor/TextProcessingPipeline.py
+src/kaelib/processor/WordTokenizer.py
 src/kaelib/processor/__init__.py
 src/kaelib/processor/custom_metrics.py
+src/kaelib/processor/dataset.py
 src/kaelib/processor/preprocessing_func.py

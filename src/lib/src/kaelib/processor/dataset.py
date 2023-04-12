@@ -28,8 +28,8 @@ class HuggingfaceHeadlineDataset(Dataset):
 
     def __getitem__(self, idx):
         return {
-            "input_ids": self.input_ids[idx],
-            "attention_mask": self.attention_mask[idx],
+            "input_ids": self.input_ids[idx], # type: ignore
+            "attention_mask": self.attention_mask[idx], # type: ignore
         }, self.labels[idx]
         
 class TokenizerHeadlineDataset(Dataset):

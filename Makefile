@@ -2,6 +2,9 @@ lib:
 	pip install -r requirements.txt
 	pip install ./src/lib/
 
+kaelib:
+	pip install ./src/lib/
+
 headline-retrieve:
 	python "src/1. Data Retrieval/headline_crawler.py"
 
