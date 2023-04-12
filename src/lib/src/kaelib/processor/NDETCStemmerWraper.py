@@ -4,7 +4,7 @@ emoji or 'HTTPURL'
 """
 import re
 from NDETCStemmer import NDETCStemmer
-from processor.TextProcessingPipeline import TextProcessingPipeline
+from .TextProcessingPipeline import TextProcessingPipeline
 from typing import Optional
 
 class NDETCStemmerWraper:
