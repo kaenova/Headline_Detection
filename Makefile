@@ -1,3 +1,6 @@
+activate:
+	(. venv/Scripts/activate)
+
 lib:
 	pip install -r requirements.txt
 	pip install ./src/lib/

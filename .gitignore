@@ -6,3 +6,4 @@ temp
 .ipynb_checkpoints
 .word_vectors_cache
 *.ckpt
+.virtual_documents

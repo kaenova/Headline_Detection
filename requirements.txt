@@ -18,4 +18,10 @@ scikit-learn
 lightning
 tensorboard
 jupyterlab
+ipywidgets
+jupyterlab-lsp
+python-lsp-server[all]
+python-dotenv
+boto3
+botocore
 git+https://github.com/kaenova/NDETCStemmer.git@master
