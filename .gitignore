@@ -7,3 +7,4 @@ temp
 .word_vectors_cache
 *.ckpt
 .virtual_documents
+4. Processed.zip

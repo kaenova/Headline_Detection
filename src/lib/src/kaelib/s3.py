@@ -1,9 +1,10 @@
 # First time i write a code that 90% written by ChatGPT (April 16, 2023) -Kaenova
 
 import os
-import boto3
 import warnings
 from tqdm import tqdm
+from minio import Minio
+from minio.error import S3Error
 
 def check_required_env_vars():
     """
@@ -13,7 +14,7 @@ def check_required_env_vars():
     Returns:
         None
     """
-    required_env_vars = ['BUCKET_NAME', 'BUCKET_FOLDER', 'FSSPEC_S3_ENDPOINT_URL', 'FSSPEC_S3_KEY', 'FSSPEC_S3_SECRET']
+    required_env_vars = ['BUCKET_NAME', 'BUCKET_FOLDER', 'S3_ENDPOINT', 'S3_KEY', 'S3_SECRET', 'S3_REGION', 'S3_USE_SSL']
     missing_env_vars = []
 
     for env_var in required_env_vars:
@@ -23,7 +24,7 @@ def check_required_env_vars():
     if missing_env_vars:
         warnings.warn(f"Missing required environment variables: {', '.join(missing_env_vars)}")
 
-def upload_folder_to_s3(folder_path, s3_folder=None, bucket_name=None, s3_endpoint_url=None, access_key=None, secret_key=None):
+def upload_folder_to_s3(folder_path, s3_folder=None, bucket_name=None, s3_endpoint_url=None, access_key=None, secret_key=None, region='default', ssl=False):
     """
     Uploads a folder and its contents to a custom S3 endpoint, with an optional custom folder.
 
@@ -44,18 +45,21 @@ def upload_folder_to_s3(folder_path, s3_folder=None, bucket_name=None, s3_endpoi
     if not s3_folder:
         s3_folder = os.environ.get('BUCKET_FOLDER')
     if not s3_endpoint_url:
-        s3_endpoint_url = os.environ.get('FSSPEC_S3_ENDPOINT_URL')
+        s3_endpoint_url = os.environ.get('S3_ENDPOINT')
     if not access_key:
-        access_key = os.environ.get('FSSPEC_S3_KEY')
+        access_key = os.environ.get('S3_KEY')
     if not secret_key:
-        secret_key = os.environ.get('FSSPEC_S3_SECRET')
+        secret_key = os.environ.get('S3_SECRET')
+    if os.environ.get('S3_REGION') != 'default':
+        region = os.environ.get('S3_REGION')
+    if os.environ.get("S3_USE_SSL") in ["true", "True", "1"]:
+        ssl = True
 
-
-    s3 = boto3.resource('s3', endpoint_url=s3_endpoint_url,
-                        aws_access_key_id=access_key,
-                        aws_secret_access_key=secret_key)
-
-    bucket = s3.Bucket(bucket_name)
+    s3_client = Minio(s3_endpoint_url,
+                      access_key=access_key,
+                      secret_key=secret_key,
+                      region=region,
+                      secure=ssl)
 
     total_files = sum([len(filenames) for _, _, filenames in os.walk(folder_path)])
     with tqdm(total=total_files, desc="Uploading", unit="file") as progress_bar:
@@ -70,11 +74,12 @@ def upload_folder_to_s3(folder_path, s3_folder=None, bucket_name=None, s3_endpoi
 
                 # Convert Windows-style path to Unix-style path
                 s3_path = s3_path.replace(os.path.sep, '/')
+                local_path = local_path.replace(os.path.sep, '/')
 
                 try:
-                    bucket.upload_file(local_path, s3_path)
-                except:
-                    print(f"Failed to upload {local_path} to S3")
+                    s3_client.fput_object(bucket_name, s3_path, local_path)
+                except S3Error as e:
+                    print(f"Failed to upload {local_path} to S3: {e}")
 
                 progress_bar.set_postfix(file=os.path.relpath(local_path, folder_path))
                 progress_bar.update(1)
@@ -82,6 +87,7 @@ def upload_folder_to_s3(folder_path, s3_folder=None, bucket_name=None, s3_endpoi
     print("Upload complete!")
 
 if __name__ == "__main__":
+    pass
     # Example usage:
     # folder_path = "/path/to/folder"
     # s3_folder = "custom-folder"  # Optional: specify a custom S3 folder
@@ -90,4 +96,3 @@ if __name__ == "__main__":
     # access_key = "my-access-key"  # Optional: specify AWS access key
     # secret_key = "my-secret-key"  # Optional: specify AWS secret key
     # upload_folder_to_s3("tensorboard/fasttext")
-    pass

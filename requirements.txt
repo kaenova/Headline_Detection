@@ -24,4 +24,5 @@ python-lsp-server[all]
 python-dotenv
 boto3
 botocore
+minio
 git+https://github.com/kaenova/NDETCStemmer.git@master
