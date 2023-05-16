@@ -1,5 +1,7 @@
 # Headline Detection
 
+[![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg)](https://huggingface.co/spaces/kaenova/headline_detector_space)
+
 **This repository use custom handmade library** named `kaelib`, to install:
 ```sh
 make lib
